@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>고메이494 마켓 웹페이지 개발</title>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+
+			const menu_a = document.querySelectorAll("header li>a");
+			const menu_div = document.querySelector("header+div");
+			const subMenu = document.querySelectorAll("nav");
+			const menu = document.querySelector("header ul");
+			const multi_event = ["focus", "mouseenter"];
+			const menu_last = document.querySelector("header li:last-child  a:last-child");
+
+			//상단 메인메뉴 호버시 서브메뉴 보인다
+			menu_a.forEach(i => {
+				multi_event.forEach(z => {
+					i.addEventListener(z, () => {
+						menu_div.style.height = "150px";
+						menu_div.style.transition = "height 0.5s";
+						subMenu.forEach(j => {
+							j.style.height = "130px";
+							j.style.transition = "height 0.5s";
+						});
+					})
+				});
+			});
+
+			const menu_hide = () => {
+				menu_div.style.height = 0;
+				subMenu.forEach(j => {
+					j.style.height = 0;
+					j.style.transition = "height 0.5s";
+				});
+			}
+			//웹접근성강화: 메뉴의 마지막 항목에서 마우스를 떠날때
+			menu_last.addEventListener("blur", () => {
+				menu_hide();
+			});
+
+			//상단 전체메뉴영역에서 마우스 떠날때
+			menu.addEventListener("mouseleave", () => {
+				menu_hide();
+			});
+			/*********슬라이드************/
+			const slideImg = document.querySelectorAll('#slideArea img');
+
+			let t = 2;
+			const fadeSlide = () => {
+
+				const x = () => {
+					slideImg.forEach(z => z.style.opacity = 1);
+					t = 2;
+					
+				}
+				const y = () => {
+					slideImg[t].style.opacity = 0;
+					t--;
+				}
+				//삼항연산자
+				(t == 0) ? x() : y();
+			}
+
+			setInterval(fadeSlide, 1500);
+
+			/********************************/
+			const notice_a = document.querySelectorAll("#notice a");
+			const black = document.getElementById("black");
+			const pop_btn = document.querySelector("#black button");
+
+			//팝업모달 보이기
+			notice_a.forEach(i => {
+				i.addEventListener("click", () => {
+					black.style.display = "block";
+				});
+			});
+
+			//팝업모달 닫기
+			pop_btn.addEventListener("click", () => {
+				black.style.display = "none";
+			});
+
+			//웹접근성강화: esc키를 누르면 팝업모달이 닫힌다
+			document.addEventListener("keydown", (event) => {
+				if (event.key === "Escape") black.style.display = "none";
+			});
+
+
+			//하단 펼침메뉴 링크이동
+			const select = document.querySelector("footer select");
+			select.addEventListener("change", function () { //this 선택자 사용을 위해
+				if (this.value !== "#") window.open(this.value);
+			});
+
+		}); //js 전체 끝부분
+	</script>
+	<link rel="stylesheet" href="css/index.css">
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div id="layout">
+		<header>
+			<h1><a href="#"><img src="images/logo.jpg" alt="로고"></a></h1>
+			<ul>
+				<li>
+					<a href="#">FOODCOURT / DELI / HEALTH</a>
+					<nav>
+						<a href="#">감촌순두부</a>
+						<a href="#">땀땀</a>
+						<a href="#">랍스타바</a>
+						<a href="#">만두공방</a>
+					</nav>
+				</li>
+				<li>
+					<a href="#">DELI & DESSERT</a>
+					<nav>
+						<a href="#">비파티세리</a>
+					</nav>
+				</li>
+				<li>
+					<a href="#">CUSTOMER SERVICES</a>
+					<nav>
+						<a href="#">식품관 안내데스크</a>
+						<a href="#">지스텀</a>
+						<a href="#" class="blank"> &nbsp; </a>
+					</nav>
+				</li>
+			</ul>
+		</header>
+		<div></div>
+		<section id="slideArea">
+			<h2>이미지 슬라이드</h2>
+			<div>
+				<img src="images/visual3.jpg" alt="건설 한길 40년">
+				<img src="images/visual2.jpg" alt="정직 성실 고객">
+				<img src="images/visual1.jpg" alt="고객 감동을 위해">
+			</div>
+		</section>
+		<main>
+			<section id="notice">
+				<h2>공지사항</h2>
+				<ul>
+					<li>
+						<a href="#">3월 새내기 혜택모아 '봄'</a>
+						<span>2020.02.18</span>
+					</li>
+					<li>
+						<a href="#">고메이494에서 드리는 신선한 선물</a>
+						<span>2021.02.07</span>
+					</li>
+					<li>
+						<a href="#">나른해질 땐 상큼함으로 일상 깨우기</a>
+						<span>2020.01.20</span>
+					</li>
+					<li>
+						<a href="#">발사믹 비니거로 특별한 드레싱 완성</a>
+						<span>2020.01.15</span>
+					</li>
+				</ul>
+			</section>
+			<section id="gallery">
+				<h2>갤러리</h2>
+				<div>
+					<a href="#"><img src="images/gallery1.jpg" alt="설계도면"></a>
+					<a href="#"><img src="images/gallery2.jpg" alt="인천대교 건설"></a>
+					<a href="#"><img src="images/gallery3.jpg" alt="논현동 육교 건설"></a>
+				</div>
+			</section>
+			<section id="quick">
+				<h2>바로가기</h2>
+				<a href="#"><img src="images/quick_banner.jpg" alt="건축실적 - 대구 파티마공원 증축공사"></a>
+			</section>
+		</main>
+		<footer>
+			<p>
+				<a href="#">업체소개</a>
+				<span class="asdf">|</span>
+				<a href="#">이용약관</a>
+				<span class="asdf">|</span>
+				<a href="#">개인정보취급방침안내</a>
+				<span class="asdf">|</span>
+				<a href="#">계열사안내</a><br>
+				서울특별시 영등포구 63로 50 (여의도동) 한화갤러리아 10층 (주)한화갤러리아<span class="asdf">|</span>사업자등록번호 : 219-81-00317<span
+					class="asdf">|</span>Tel: 1588-0121
+				<span class="asdf">|</span>
+				E-mail: <a href="#">hanhwa@galleria.co.kr</a><br>
+				COPYRIGHT ⓒ HANWHA GALLERIA CO., LTD. ALL RIGHTS RESERVED.
+
+			</p>
+			<select>
+				<option value="#">패밀리 사이트</option>
+				<option value="http://naver.com">갤러리아 몰</option>
+				<option value="http://apple.com">갤러리아백화점</option>
+				<option value="http://adobe.com">갤러리아 뷰티샵</option>
+			</select>
+		</footer>
+	</div>
+	<div id="black">
+		<section>
+			<h3>공지사항</h3>
+			<img src="images/popup.jpg" alt="공지사항">
+			<p>
+				<!-- ESC키를 눌러도 창이 닫힙니다.<br> -->
+				<button type="button">닫기</button>
+			</p>
+		</section>
+	</div>
+</body>
+
+</html>
