@@ -50,9 +50,11 @@ header>h1>a {
     position: absolute;
     /* border: 1px solid blue; */
     ;
-    margin-left: 20px;
-    margin-top: 10px;
-
+    margin-left: 4%;
+    margin-top: 4%
+}
+header li>a.active {
+    color: red; /* 유지하고 싶은 호버 색상 */
 }
 
 header ul {
@@ -108,7 +110,8 @@ nav>a {
     color: white;
 }
 
-nav>a:hover {
+nav>a:hover,
+nav>a:focus {
     color: #ffc000;
 }
 
